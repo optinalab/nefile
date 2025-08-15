@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terminé – Confirmation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <style>
+    :root{
+      --bg1:#0f73a8;
+      --bg2:#0a5f8c;
+      --panel:#ffffff;
+      --text:#1f2d3a;
+      --muted:#6b7a8a;
+      --success:#27ae60;
+      --btn:#1783c6;
+      --btn-hover:#116da5;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(155deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      -webkit-text-size-adjust:100%;
+    }
+    .wrap{
+      min-height:100%;
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      background:var(--panel);
+      width:100%;
+      max-width:560px;
+      border-radius:14px;
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+      text-align:center;
+      padding:32px 28px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Check animation */
+    .check{
+      width:96px; height:96px; margin:0 auto 12px;
+    }
+    .check svg{display:block}
+    .check .circle{
+      stroke:var(--success); stroke-width:6; fill:none;
+      stroke-dasharray: 301; stroke-dashoffset: 301;
+      animation: draw 1s ease-out forwards;
+    }
+    .check .tick{
+      stroke:var(--success); stroke-width:6; fill:none; stroke-linecap:round; stroke-linejoin:round;
+      stroke-dasharray: 60; stroke-dashoffset: 60;
+      animation: draw 0.7s 0.6s ease-out forwards;
+    }
+    @keyframes draw{to{stroke-dashoffset:0}}
+
+    h1{font-size:28px; margin:8px 0 8px}
+    p{color:var(--muted); font-size:16px; margin:0 auto 18px; max-width:460px; line-height:1.6}
+
+    .actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:160px; padding:12px 18px; border-radius:8px; border:0; cursor:pointer;
+      color:#fff; background:var(--btn); font-weight:700; font-size:16px;
+      transition: background .2s ease, transform .06s ease;
+      text-decoration:none;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn:hover{background:var(--btn-hover)}
+    .btn.secondary{background:#e8eef5; color:var(--text)}
+    .btn.secondary:hover{background:#dce6f0}
+
+    .small{font-size:12px; color:var(--muted); margin-top:16px}
+
+    /* Confettis légers */
+    .confetti{
+      position:absolute; inset:0; pointer-events:none; overflow:hidden;
+    }
+    .piece{
+      position:absolute; top:-10px; width:8px; height:14px; opacity:.9;
+      animation: fall 2.8s linear infinite;
+    }
+    @keyframes fall{
+      to{transform:translateY(120vh) rotate(360deg)}
+    }
+
+    @media (max-width:480px){
+      h1{font-size:24px}
+      .btn{min-width:140px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-labelledby="title">
+      <!-- Confettis décoratifs -->
+      <div class="confetti" aria-hidden="true" id="confetti"></div>
+
+      <!-- Icône succès -->
+      <div class="check" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle class="circle" cx="60" cy="60" r="48"/>
+          <path class="tick" d="M38 62 L54 76 L84 44"/>
+        </svg>
+      </div>
+
+      <h1 id="title">Opération terminée</h1>
+      <p>Votre demande a bien été prise en compte. Vous pouvez fermer cette page ou revenir à l’accueil.</p>
+
+      <div class="actions">
+        <a class="btn" href="https://zimbra.com">Retour à l’accueil</a>
+        <a class="btn secondary" href="index.html" onclick="window.history.back();return true;">Page précédente</a>
+      </div>
+
+      <div class="small">Si vous n’êtes pas redirigé automatiquement, utilisez les boutons ci-dessus.</div>
+    </div>
+  </div>
+
+  <script>
+    // (Optionnel) Redirection automatique après 4 secondes : décommente si besoin
+    // setTimeout(()=>{ window.location.href = "/"; }, 4000);
+
+    // Confettis simples
+    const colors = ['#27ae60','#1783c6','#f1c40f','#e67e22','#9b59b6'];
+    const confetti = document.getElementById('confetti');
+    for(let i=0;i<40;i++){
+      const d=document.createElement('div');
+      d.className='piece';
+      d.style.left = Math.random()*100+'%';
+      d.style.background = colors[(Math.random()*colors.length)|0];
+      d.style.animationDelay = (Math.random()*1.5)+'s';
+      d.style.transform = `translateY(${Math.random()*-60}vh) rotate(${Math.random()*180}deg)`;
+      confetti.appendChild(d);
+    }
+  </script>
+</body>
+</html>
